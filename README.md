@@ -1,26 +1,33 @@
-# Components to Implement
+# MIPS Single Cycle Processor
 
-- **Instruction Memory**: A memory module that stores the instructions of your program.
-- **Data Memory**: A memory module for storing and retrieving data.
-- **Program Counter (PC)**: Keeps track of the address of the next instruction to execute.
-- **Instruction Fetch Unit**: Fetches the instruction from the instruction memory.
-- **Instruction Decode Unit**: Decodes the fetched instruction and identifies the operation and operands.
-- **Register File**: A set of registers that can be read from and written to.
-- **Arithmetic Logic Unit (ALU)**: Performs arithmetic and logical operations.
-- **Control Unit**: Generates control signals based on the decoded instruction.
-- **ALU Control**: Determines the operation the ALU should perform based on the instruction.
-- **Multiplexers (MUXes)**: Used to select between different inputs for the next operation.
-- **Sign Extension Unit**: Extends the immediate values to the appropriate length.
+This repository contains the Verilog code for a MIPS single cycle processor. The project includes the following modules:
 
-# Example High-Level Architecture
+- **Control Unit**: Decodes the opcode and function fields of the instruction and generates control signals for the processor.
+- **ALU**: Performs arithmetic and logical operations based on the control signal.
+- **Instruction Memory**: Stores the instructions to be executed by the processor.
+- **Data Memory**: Stores and retrieves data from memory.
+- **Register File**: Stores and retrieves register values.
+- **Sign Extend**: Extends the sign of a 16-bit immediate to 32 bits.
 
-Here's a simplified architecture for a MIPS processor:
+## Instructions Supported
 
-- **Instruction Memory**: Stores the machine code of the program.
-- **PC (Program Counter)**: Points to the address of the next instruction.
-- **Instruction Fetch**: Fetches the instruction from the memory.
-- **Instruction Decode**: Decodes the instruction to understand what needs to be done.
-- **Register File**: Contains the registers, allows read/write access to the registers.
-- **ALU**: Performs arithmetic and logic operations.
-- **Data Memory**: Used for load/store operations.
-- **Control Unit**: Directs the operation of the processor.
+The processor is capable of executing the following instructions:
+- `add`: Add two registers.
+- `sub`: Subtract two registers.
+- `addi`: Add immediate to a register.
+- `lw`: Load word from memory.
+- `sw`: Store word to memory.
+- `bne`: Branch if not equal.
+- `jal`: Jump and link.
+- `jr`: Jump register.
+
+## Sample Assembly Code
+
+```assembly
+li $t0, 5          # $t0 = 5
+li $t1, 3          # $t1 = 3
+add $t2, $t0, $t1  # $t2 = $t0 + $t1 = 5 + 3 = 8
+li $t3, 10         # $t3 = 10
+ble $t2, $t3, end  # if $t2 <= $t3, jump to end
+addi $t2, $t2, 3   # $t2 > $t3, so add 3: $t2 = $t2 + 3
+end:
